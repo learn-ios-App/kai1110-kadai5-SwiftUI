@@ -1,21 +1,58 @@
-//
-//  ContentView.swift
-//  kai1110-kadai5-SwiftUI
-//
-//  Created by 渡邊魁優 on 2022/11/23.
-//
 
 import SwiftUI
 
 struct ContentView: View {
+    @State var numberTextField1 = ""
+    @State var numberTextField2 = ""
+    @State var warningContent = ""
+    @State var isAlert = false
+    @State var resultNumber: Float = 0.0
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            HStack {
+                TextField("", text: $numberTextField1)
+                Text("÷")
+                    .font(.title)
+                TextField("", text: $numberTextField2)
+            }
+            .padding()
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            Button(action: {
+                resultNumber = checkNumbers(number1: numberTextField1, number2: numberTextField2)
+            }) {
+                Text("計算")
+                    .padding()
+            }
+            Text("\(resultNumber)")
+                .alert("エラー", isPresented: $isAlert) {
+                    Button("確認") {}
+                } message: {
+                    Text("\(warningContent)")
+                }
         }
-        .padding()
+    }
+    func checkNumbers(number1: String, number2: String) -> Float {
+        if Int(number1) == nil {
+            warningContent = "割られる数を入力してください"
+            isAlert = true
+        }
+        if Int(number2) == nil {
+            warningContent = "割る数を入力してください"
+            isAlert = true
+        }
+        if Int(number2) == 0 {
+            warningContent = "割る数には0は入力できません"
+            isAlert = true
+            
+        }
+        if isAlert {
+            return 0
+        }
+        else {
+            return Float(number1)! / Float(number2)!
+        }
     }
 }
 
