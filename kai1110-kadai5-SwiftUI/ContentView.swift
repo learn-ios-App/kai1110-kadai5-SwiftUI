@@ -25,7 +25,7 @@ struct ContentView: View {
                 Text("計算")
                     .padding()
             }
-            Text("\(resultNumber)")
+            Text(String(format: "%.2f", resultNumber))
                 .alert("エラー", isPresented: $isAlert) {
                     Button("確認") {}
                 } message: {
