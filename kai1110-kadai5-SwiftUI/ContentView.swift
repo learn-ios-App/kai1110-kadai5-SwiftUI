@@ -37,12 +37,10 @@ struct ContentView: View {
         if Int(number1) == nil {
             warningContent = "割られる数を入力してください"
             isAlert = true
-        }
-        if Int(number2) == nil {
+        } else if Int(number2) == nil {
             warningContent = "割る数を入力してください"
             isAlert = true
-        }
-        if Int(number2) == 0 {
+        } else if Int(number2) == 0 {
             warningContent = "割る数には0は入力できません"
             isAlert = true
             
